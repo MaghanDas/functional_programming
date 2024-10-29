@@ -36,6 +36,7 @@ multiplyUntilOne :: Int -> Int
 multiplyUntilOne 1= 1
 multiplyUntilOne n = n^n + multiplyUntilOne(n-1)
 -- main = print(multiplyUntilOne 3)
+
 -- 4. Write a function which calculates the sum of the digits of a number.
 -- 123 -> 1+2+3  = 6
 digitSum :: Int -> Int
@@ -53,44 +54,54 @@ powerrec ::  Int -> Int -> Int
 powerrec x n
      |n==0 =1
      |otherwise=x*powerrec x (n-1)
-
 -- main = do 
 --     print(powerrec 2 0);
---     print(powerrec 3 3);      
+--     print(powerrec 3 3);
+      
 -- 6. Returns the number decreased by the last digit if positive, otherwise returns -1.
 getLastPositive :: Int -> Int
 getLastPositive n
        |n < 0 = -1
        |n <10 = 0
        |otherwise = n - (n `mod` 10)
-
 -- main = do
 --      print(getLastPositive 23)
 --      print(getLastPositive 344
 
 -- 7.  Return the product if both numbers are odd, sum if both are even, otherwise return 0.
+-- Function to return the product if both numbers are odd, sum if both are even, otherwise return 0
+processNumbers :: Int -> Int -> Int
+processNumbers x y
+  | odd x && odd y   = x * y            -- Both numbers are odd, return the product
+  | even x && even y = x + y            -- Both numbers are even, return the sum
+  | otherwise        = 0                -- One number is odd, the other is even, return 0
+-- main = do
+  print (processNumbers 3 5)    -- Both odd, should return 15 (3 * 5)
+  print (processNumbers 4 8)    -- Both even, should return 12 (4 + 8)
+  print (processNumbers 3 4)    -- One odd, one even, should return 0
+  print (processNumbers 7 2)    -- One odd, one even, should return 0
+
 -- 8. Check if 5 numbers are sorted in increasing order.
     isSorted :: [Int] -> Bool
 isSorted [] = True -- empty list is sorted always
 isSorted [_] = True -- single elements is always sorted.
 isSorted( x:y:xs ) = (x <=y) && isSorted(y:xs)
-
 -- main = do
 --              print (isSorted[1,2,3,4,5])
 --              print (isSorted[3,2,1])
 
--- 9. Transform days into years, weeks, and days.
 
+-- 9. Transform days into years, weeks, and days.
 aysToYearsWeeksDays :: Int -> String
 daysToYearsWeeksDays days = 
   let years = days `div` 365          -- Calculate the number of years
       weeks = (days `mod` 365) `div` 7 -- Calculate the number of weeks
       remainingDays = (days `mod` 365) `mod` 7 -- Calculate remaining days
   in  show years ++ " years, " ++ show weeks ++ " weeks, and " ++ show remainingDays ++ " days"
-
 -- Example usage:
 -- main :: IO ()
 -- main = putStrLn (daysToYearsWeeksDays 800) -- "2 years, 10 weeks, and 1 days"
+
 
 -- 10. ---- Armstrong number
 --  If sum of cubes of each digit of the number is equal to the number itself, then the number is called an   Armstrong number.
@@ -105,8 +116,6 @@ isArmstrong n = n == sumOfCubes n
     sumOfCubes :: Int -> Int
     sumOfCubes 0 = 0
     sumOfCubes x = (x `mod` 10) ^ 3 + sumOfCubes (x `div` 10)
-
-
 -- main = print( isArmstrong 153) -- True
 -- main = print( armstrong 370) -- True
 -- main = print( armstrong 0) -- True

@@ -70,5 +70,14 @@ getLastPositive n
 
 -- 7.  Return the product if both numbers are odd, sum if both are even, otherwise return 0.
 -- 8. Check if 5 numbers are sorted in increasing order.
+    isSorted :: [Int] -> Bool
+isSorted [] = True -- empty list is sorted always
+isSorted [_] = True -- single elements is always sorted.
+isSorted( x:y:xs ) = (x <=y) && isSorted(y:xs)
+
+-- main = do
+--              print (isSorted[1,2,3,4,5])
+--              print (isSorted[3,2,1])
+
 -- 9. Transform days into years, weeks, and days.
 -- Convert the number of days into a string of years, weeks, and days    

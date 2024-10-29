@@ -80,4 +80,16 @@ isSorted( x:y:xs ) = (x <=y) && isSorted(y:xs)
 --              print (isSorted[3,2,1])
 
 -- 9. Transform days into years, weeks, and days.
--- Convert the number of days into a string of years, weeks, and days    
+
+aysToYearsWeeksDays :: Int -> String
+daysToYearsWeeksDays days = 
+  let years = days `div` 365          -- Calculate the number of years
+      weeks = (days `mod` 365) `div` 7 -- Calculate the number of weeks
+      remainingDays = (days `mod` 365) `mod` 7 -- Calculate remaining days
+  in  show years ++ " years, " ++ show weeks ++ " weeks, and " ++ show remainingDays ++ " days"
+
+-- Example usage:
+-- main :: IO ()
+-- main = putStrLn (daysToYearsWeeksDays 800) -- "2 years, 10 weeks, and 1 days"
+
+-- 10.

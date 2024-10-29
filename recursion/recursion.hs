@@ -58,6 +58,16 @@ powerrec x n
 --     print(powerrec 2 0);
 --     print(powerrec 3 3);      
 -- 6. Returns the number decreased by the last digit if positive, otherwise returns -1.
+getLastPositive :: Int -> Int
+getLastPositive n
+       |n < 0 = -1
+       |n <10 = 0
+       |otherwise = n - (n `mod` 10)
+
+-- main = do
+--      print(getLastPositive 23)
+--      print(getLastPositive 344
+
 -- 7.  Return the product if both numbers are odd, sum if both are even, otherwise return 0.
 -- 8. Check if 5 numbers are sorted in increasing order.
 -- 9. Transform days into years, weeks, and days.

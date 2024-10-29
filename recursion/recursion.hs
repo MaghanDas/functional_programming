@@ -92,4 +92,22 @@ daysToYearsWeeksDays days =
 -- main :: IO ()
 -- main = putStrLn (daysToYearsWeeksDays 800) -- "2 years, 10 weeks, and 1 days"
 
--- 10.
+-- 10. ---- Armstrong number
+--  If sum of cubes of each digit of the number is equal to the number itself, then the number is called an   Armstrong number.
+--  153 = 1^3 + 5^3 + 3^3
+--  Given a positive integer number, write a function to determine whether it is an Armstrong number or not.
+
+-- Function to check if a number is an Armstrong number
+isArmstrong :: Int -> Bool
+isArmstrong n = n == sumOfCubes n
+  where
+    -- Helper function to calculate the sum of cubes of digits
+    sumOfCubes :: Int -> Int
+    sumOfCubes 0 = 0
+    sumOfCubes x = (x `mod` 10) ^ 3 + sumOfCubes (x `div` 10)
+
+
+-- main = print( isArmstrong 153) -- True
+-- main = print( armstrong 370) -- True
+-- main = print( armstrong 0) -- True
+-- main = print( armstrong 12) -- False

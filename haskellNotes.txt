@@ -1,0 +1,54 @@
+
+
+lab - 3 ( Lists in Haskell )
+1. Homogeneity: All elements of list must be of the same type.
+2. Basic functions:
+            1. "head list" retrieves the first element.
+            2. "tail list" returns all but the first element.
+            3. Use "++" to combine two lists.
+            4. "length list" gives the number of elements of list
+            5. Nested Lists: Lists can contain other lists.
+            6. Indexing: Access elements with (list !! index).
+
+-> checkout lists.hs for more detailed lists concepts........!
+    -> list syntax:
+              listName = [1,2,3,4,5]   -- or 
+              listName = [1..5] -- or 
+    -> to add elements
+          firstElement = head myList      -- 1
+          restElements = tail myList      -- [2, 3, 4, 5]
+          lastElement = last myList       -- 5
+          allButLast = init myList        -- [1, 2, 3, 4]
+          drop 5 [1, 2, 3, 4, 5, 6, 7] -- [6,7] delete first 5 elements
+          take 4 [1, 2, 3, 4, 5]  -- [1,2,3,4] take first 4 elements
+          main = print (reverse [1..8])  -- [8,7,6,5,4,3,2,1] reverses a list
+
+        
+we can add elements to a list in a couple of ways:
+Using : (Cons Operator): Adds an element to the front of the list.
+Using ++ (Concatenation Operator): Combines two lists.
+myList2 = 0 : myList
+combinedList = myList2 ++ myList3
+listLength = length myList      -- 5
+containsTwo = 2 `elem` myList   -- True
+
+-- list comprehensions..
+-- syntax: 
+-- functions name = [expression | element <- iterable, condition]
+
+
+
+-- Common List Functions
+-- Here are some common built-in functions for lists:
+
+-- map: Applies a function to each element of a list.
+-- filter: Returns a list of elements that satisfy a predicate.
+-- foldl and foldr: Reduce a list to a single value using a binary function.
+
+increment :: [Int]
+increment = map (+1) myList  --> adds 1 to each element in list
+evenList = filter even myList --> prints only even elements from list.
+
+
+
+

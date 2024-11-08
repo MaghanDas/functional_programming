@@ -51,4 +51,121 @@ evenList = filter even myList --> prints only even elements from list.
 
 
 
+--Generate 2 digits number starting with 9
+fun :: [Int]
+fun = [90 .. 99]
+-- fun = [i | i <- [90..99]]
+main = print fun
+
+-- Generate positive even numbers from 0 up to 100
+multiple5 :: [Int]
+multiple5 = [x | x <- [0..100], even x]
+main = print multiple5
+
+---------------------------------------------------------------------------------------
+-- Basic list functions - review
+head [ [101, 20], [33, 43, 51]]   -- [101,20]
+head [[[101, 20]], [[33]],[[ 43, 51], [1,2,3]]]   -- [[101,20]]
+tail [10, 22, 32, 43, 58]   -- [22,32,43,58] everything except first element as a list
+head [101, 20, 33, 43, 51]    -- 101 first element of the list
+drop 5 [1, 2, 3, 4, 5, 6, 7]  -- [6,7] delete first 5 elements
+take 4 [1, 2, 3, 4, 5]  -- [1,2,3,4] take first 4 elements
+[1..10] ++ [8, 88]   -- [1,2,3,4,5,6,7,8,9,10,8,88] concatenation, appends the second to the first
+reverse [1..8]  -- [8,7,6,5,4,3,2,1] reverses a list
+length [1..100]    -- 100 number of elements 
+last [100, 200, 300]  -- 300 last list element
+init [100, 200, 300]  -- [100,200] all except the last          
+( 2 `elem` [0..22] ) -- True, check membership 
+ elem 5 [10..20] -- False
+concat [[1,2,3,4], [5], [6,7,8]] -- [1,2,3,4,5,6,7,8] flattens a list of lists
+
+----------------------------------
+-The concatTails function takes two input lists (with length at least 2), 
+--removes the first elements from each, and --concatenates the remaining lists. 
+concatTails :: [a] -> [a] -> [a]
+concatTails _ _ = []
+concatTails (x:xs) (y:ys)  = xs ++ ys
+
+-- The middle function takes a non-empty list of integers and returns the middle element.
+-- If the list is empty, it should return an error mssage
+
+-- middle :: [Int] -> Int
+-- middle [] = error "error"
+-- middle xs
+--     | odd len = xs !! middleIndex  -- length odd
+--     | otherwise = (xs !! middleIndex -1   + xs !! middleIndex ) `div` 2
+--     where 
+--     len = length xs
+--     middleIndex = len `div` 2
+-- main = do
+--     print (middle [1..5])  -- Output: 3
+--     print (middle [1..4])  -- Output: 2
+--     print (middle [])      -- Error: "Your list is empty"
+
+
+---------------------------------------------------------------------------------------
+---- The cut function takes a list of integers and return a list of two lists, 
+-- splitting the original list at the middle.
+-- If the list is empty, it should return two empty lists.
+
+-- cut :: [Int] -> [[Int]]
+-- cut xs 
+--    | null xs = [[],[]]
+--    | otherwise = [take midIndex xs , drop midIndex xs ]
+--  where
+--     midIndex = length xs `div` 2
+-- main = do
+--     print (cut [1..10])  -- Output: [[1,2,3,4,5],[6,7,8,9,10]]
+--     print (cut [1..6])  -- Output: [[1,2,3,4,5],[6,7,8,9,10]]
+--     print (cut [1..11])  -- Output: [[1,2,3,4,5],[6,7,8,9,10,11]]
+--     print (cut [])       -- Output: [[], []]
+--     print (cut [1])      -- Output: [[1], []]
+
+---------------------------------------------------------------------------------------
+---- The f1 function takes a list of integers and returns a new list 
+-- with 3 added to every element using recursion.
+
+-- fun :: [Int] -> [Int]
+-- fun = map (+3)
+-- -- main = print (fun [1, 5, 3, 1, 6]) -- [4, 8, 6, 4, 9]
+-- -- main = print (fun [0, -3, 7]) -- [3, 0, 10]
+-- main = print (fun []) -- []
+-- -- main = print (fun [10]) -- [13]/
+
+
+ returns a new list with the double of the positive elements.
+f2 xs = [(+ x) x | x <- xs, x > 0]
+sq = map(^2) // square of everyelemeny
+insertZero = map (0 :)  -- Use `map` to add `0` to the front of each sublist
+
+lab-4
+
+-- Collect the divisors of a number in a list.
+--divisors :: Int -> [Int] -- (use a list to accumulate the values)
+-- main = print (divisors 18) -- [1,2,3,6,9,18]
+--divisors2 :: Int -> [Int] -- (build a list recursively)
+-- main = print (divisors2 18) -- [1,2,3,6,9,18]
+
+minimum3 :: [Int] -> Int
+minimum3 = minimum
+main = print (minimum3 [1..5]) -- 1
+
+
+-- Given a list of Ints, remove the element at the given position.
+remElemAt :: Int -> [Int] -> [Int]
+remElemAt i list = take i list ++ drop (i + 1) list
+-- main = print (remElemAt 6 [1..7]) -- [1,2,3,4,5,6]
+
+-- Delete every second element from a list.
+-- (x1 : x2 : xs)
+del2 :: [Int] -> [Int]
+del2  [] = []
+del2  [x] = [x]
+del2  (x : y : xs) = x : del2 xs
+
+-- Write a function for the square, the cube, and so on up to the n-th power of a number,
+-- so that increasing powers of a number are obtained in a list.
+f5 :: Int -> Int -> [Int]
+f5 1 x = []
+f5 n x = f5 (n - 1) x ++ [x ^ n]
 

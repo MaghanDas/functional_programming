@@ -5,12 +5,13 @@
 -- 1. Multiply the digits of a number e.g. for 123 is 6.
 {-# OPTIONS_GHC -Wno-overlapping-patterns #-}
 import System.Win32 (LOCALESIGNATURE(lsCsbDefault))
+import Data.Char (intToDigit)
 -- import qualified Data.ByteString as head
 
 prodDigits :: Int -> Int
-prodDigits x 
+prodDigits x
   | x < 10 = x
-  | otherwise = (x `rem` 10) * prodDigits (div x 10) 
+  | otherwise = x `rem` 10 * prodDigits (div x 10)
 
 -- main = print(prodDigits 503) -- 0
 -- main = print(prodDigits 123) -- 6.
@@ -91,8 +92,7 @@ m2 _ = error "Your list must have at least 3 elements!"  -- Error for invalid ca
 -- 1.Keep the head of every sublist (assume sublists are not empty).
 -- e.g. [[1, 2, 3], [3, 4], [5, 7, 8, 9]] -> [1, 3, 5]
 heads :: [[Int]] -> [Int]
-heads [] = []
-heads (x:xs) = head x : heads xs
+heads xs = map head xs
 -- main = print(heads [[1, 2, 3], [3, 4], [5, 7, 8, 9]]) -- [1,3,5]
 -- 2. Keep the tails of a list.
 -- e.g. [[1, 2, 3], [3, 4], [5, 7, 8, 9]] -> [[2, 3], [4], [7, 8, 9]] 
@@ -102,42 +102,37 @@ tails :: [[Int]] -> [[Int]]
 -- using high order functions
 tails = map tail
 
-main = print(tails [[1, 2, 3], [3, 4], [5, 7, 8, 9]]) -- [[2, 3], [4], [7, 8, 9]] 
+-- main = print(tails [[1, 2, 3], [3, 4], [5, 7, 8, 9]]) -- [[2, 3], [4], [7, 8, 9]] 
 
 
 -- 3. Add 100 to the numbers of a list.
---g :: Int -> Int
+-- g :: Int -> Int
 
---add100 :: [Int] -> [Int]
-
-
+-- add100 :: [Int] -> [Int]
+-- add100 [] = []
+-- add100(x:xs) = x+100 : add100 xs
+-- with high order functions
+-- add100[] = map (+100)
 --add100' :: [Int] -> [Int]
 
 
---main = print(add100 [1..8]) -- [101,102,103,104,105,106,107,108]
+-- main = print(add100 [1..8]) -- [101,102,103,104,105,106,107,108]
 --main = print(add100' [1..8]) -- [101,102,103,104,105,106,107,108]
 
-
 -- 4. Triple the elements of a list.
---triples :: [Int] -> [Int]
-
-
---main = print(triples [1..5]) -- [3,6,9,12,15]
-
---triples2 :: [Int] -> [Int]
-
-
---main = print(triples2 [1..5]) -- [3,6,9,12,15]
+triples :: [Int] -> [Int]
+triples = map (*3)
+-- main = print(triples [1..5]) -- [3,6,9,12,15]
 
 
 -- 5. Check if the numbers of a list are odd.
---isoddnrs :: [Int] -> [Bool]
-
-
+isoddnrs :: [Int] -> [Bool]
+-- isoddnrs [] = []
+-- isoddnrs(x:xs) = if odd x then True : isoddnrs xs else False: isoddnrs xs
+isoddnrs = map odd
 --isoddnrs2 :: [Int] -> [Bool]
 
-
---main = print(isoddnrs [1..5]) -- [True,False,True,False,True]
+-- main = print(isoddnrs [1..5]) -- [True,False,True,False,True]
 --main = print(isoddnrs2 [1..5]) -- [True,False,True,False,True]
 
 
@@ -145,59 +140,33 @@ main = print(tails [[1, 2, 3], [3, 4], [5, 7, 8, 9]]) -- [[2, 3], [4], [7, 8, 9]
 -- 6. Check if the numbers of a list are multiple of 10.
 
 ismult10 :: [Int] -> [Bool]
-ismult10 x = map (\x -> rem x 10 == 0) x
-
---main = print(ismult10 [1..20])
+ismult10 = map (\x -> rem x 10 == 0)
+-- main = print (ismult10 [1..20])
 --[False,False,False,False,False,False,False,False,False,True,False,False,False,False,False,False,False,False,False,True]
 
 
 -- 7. Collect in a list the last digits of the numbers of a list.
---lastdigits :: [Int] -> [Int]
 
-
---main = print(lastdigits [1..35])
+lastdigits :: [Int] -> [Int]
+lastdigits [] = []
+lastdigits (x:xs)
+  |x < 10 = x : lastdigits xs
+  |otherwise = x `mod` 10: lastdigits xs
+  
+-- main = print (lastdigits [1..35])
 -- [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5]
 
 
 -- 8. Compute the cube of the numbers of a list.
---cubes :: [Int] -> [Int]
-
-
---main = print(cubes [1..10]) -- [1,8,27,64,125,216,343,512,729,1000]
+cubes :: [Int] -> [Int]
+cubes = map(^3)
+-- main = print(cubes [1..10]) -- [1,8,27,64,125,216,343,512,729,1000]
 --main = print(cubes []) -- []
 
-
---cubes2 :: [Int] -> [Int]
-
-
---main = print(cubes2 [1..10]) -- [1,8,27,64,125,216,343,512,729,1000]
-
---cubes3 :: [Int] -> [Int]
-
-
---main = print(cubes3 [1..10]) -- [1,8,27,64,125,216,343,512,729,1000]
-
-
--- do not confuse cubes of number with powers of 3 with !!!
---powersof3 :: [Int] -> [Int]
-
-
---main = print(powersof3 [1..10]) -- [3,9,27,81,243,729,2187,6561,19683,59049]
-
-
---powersof33 :: [Int] -> [Int]
-
-
---main = print(powersof33 [1..10]) --[3,9,27,81,243,729,2187,6561,19683,59049]
-
-
 -- 9. Reverse every sublist of a list.
---revsub :: [[Int]] ->  [[Int]]
-
-
---main = print(revsub [[1,2,3],[5,6],[],[7,8,9,10]]) -- [[3,2,1],[6,5],[],[10,9,8,7]]
-
-
+revsub :: [[Int]] ->  [[Int]]
+revsub xs = map reverse xs
+-- main = print(revsub [[1,2,3],[5,6],[],[7,8,9,10]]) -- [[3,2,1],[6,5],[],[10,9,8,7]]
 
 -- 10. Keep the last elements of the sublists of a list in one list 
 -- (assume the sublists are not empty).
@@ -267,10 +236,10 @@ ismult10 x = map (\x -> rem x 10 == 0) x
 
 -- 16. Compute the product of the elements of a list using foldr.
 prodf :: [Int] -> Int
-prodf x = foldr (*) 1 x
+prodf = foldr (*) 1
 
 prodf2 :: [Int] -> Int
-prodf2 x = product x
+prodf2 = product
 
 
 --main = print(prodf [1,5,2,4]) -- 40
@@ -318,23 +287,23 @@ rep n x = x : rep (n-1) x
 --main = print(rep 3 7) -- [7,7,7]
 
 rep1 :: Int -> Int -> [Int]
-rep1 n x = replicate n x   -- built-in replicate
+rep1 = replicate   -- built-in replicate
 
 --main = print(rep1 3 7) -- [7,7,7] 
 
 f5 :: Int -> [Int] -> [[Int]]
 --f5 n x = map (\ x = rep n x) x
-f5 n x = map (rep n) x   -- partial parameterization !!!
+f5 n = map (rep n)   -- partial parameterization !!!
 
 --main = print(f5 3 [3..6]) -- [[3,3,3],[4,4,4],[5,5,5],[6,6,6]]
 
 f51 :: Int -> [Int] -> [[Int]]
-f51 n x = map (rep1 n) x 
+f51 n = map (rep1 n)
 
 --main = print(f5 3 [3..6]) -- [[3,3,3],[4,4,4],[5,5,5],[6,6,6]]
 
 f52 :: Int -> [Int] -> [[Int]]
-f52 n x = map (replicate n) x
+f52 n = map (replicate n)
 
 --main = print(f51 3 [3..6]) -- [[3,3,3],[4,4,4],[5,5,5],[6,6,6]]
 
@@ -361,7 +330,7 @@ f52 n x = map (replicate n) x
 -- [[1,2,3],[],[3,4,5],[2,2],[],[],[]] -> [[1,2,3], [3,4,5], [2,2]]
 
 notempty :: [Int] -> Bool
-notempty x = not (x == [])
+notempty x = x /= []
 
 --f8 :: [[Int]] -> [[Int]]
 

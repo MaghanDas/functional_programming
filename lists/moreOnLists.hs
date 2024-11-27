@@ -116,3 +116,74 @@ doubleNestedList = map (map (map (*2)))
 -- Input: [[-1, 2, 3], [4, -5, 6], [7, 8, -9]]
 
 -- Output: [[9, 4], [36, 16], [49, 64]]
+
+
+-- 12. Instert 0 in front of every sublist of a list.
+-- -- E.g. for [[1,2,3],[5,6],[],[7,8,9,10]] the result is 
+-- -- [[0,1,2,3],[0,5,6],[0],[0,7,8,9,10]]
+-- ins0 :: [[Int]] -> [[Int]]
+-- -- ins0  = map (0: )
+-- -- ins0  = map (++ [0])
+
+-- main = print(ins0 [[1,2,3],[5,6],[],[7,8,9,10]]) -- [[0,1,2,3],[0,5,6],[0],[0,7,8,9,10]]
+
+-- concatMap is a higher-order function in Haskell that combines the behavior of map and concat. It applies a function to each element of a list, 
+-- producing a list of lists, and then concatenates these lists into a single flattened list.
+
+-- The type signature is:
+-- concatMap :: (a -> [b]) -> [a] -> [b]  
+-- (a -> [b]): A function that transforms each element of the input list into a list.
+-- [a]: The input list.
+-- [b]: The resulting flattened list after mapping and concatenating.
+-- concatMap f xs = concat (map f xs)
+-- How It Works
+-- map f xs: Applies f to each element of the list, resulting in a list of lists.
+-- concat: Flattens this list of lists into a single list.
+
+-- duplicate :: [Int] -> [Int]
+-- duplicate = concatMap (\x -> [x, x])
+-- -- Usage:
+-- duplicate [1, 2, 3] -- Output: [1, 1, 2, 2, 3, 3]
+
+-- pairs :: [a] -> [b] -> [(a, b)]
+-- pairs xs ys = concatMap (\x -> map (\y -> (x, y)) ys) xs
+
+-- -- Usage:
+-- pairs [1, 2] ['a', 'b'] -- Output: [(1,'a'), (1,'b'), (2,'a'), (2,'b')]
+
+-- import Data.List (group)
+
+-- checkEven :: [Int] -> Bool
+-- checkEven list = all (even . length) (group (sort list))
+
+-- main :: IO ()
+-- main = print (checkEven [1, 1, 2, 2, 2, 2, 3, 5, 3, 5]) -- True
+
+-- group (sort list):
+-- The sort function sorts the list so that identical elements are adjacent to each other.
+-- group then groups identical elements together into sublists. For example, [1, 1, 2, 2, 3] becomes [[1, 1], [2, 2], [3]].
+-- all (even . length):
+-- For each group (which is a sublist of identical elements), length calculates how many times that element appears.
+-- even checks if this length is even.
+-- all ensures that all groups have even lengths.
+
+-- import Data.List (group, sort)
+
+-- -- Function to count occurrences of each element
+-- countOccurrences :: [Int] -> [(Int, Int)]
+-- countOccurrences list = map (\xs -> (head xs, length xs)) (group (sort list))
+
+-- -- Usage:
+-- main :: IO ()
+-- main = print (countOccurrences [1, 1, 2, 2, 2, 2, 3, 5, 3, 5])
+
+-- Explanation
+-- Sorting:
+-- sort list sorts the list so that identical elements are next to each other. For example, [1, 1, 2, 2, 3, 5, 3, 5] becomes [1, 1, 2, 2, 3, 3, 5, 5].
+-- Grouping:
+-- group (sort list) groups the identical elements together. After grouping, the list [1, 1, 2, 2, 3, 5, 3, 5] becomes [[1, 1], [2, 2], [3, 3], [5, 5]].
+-- Counting Occurrences:
+-- map (\xs -> (head xs, length xs)) applies a function to each group of identical elements.
+-- For each group (xs), head xs gives the element itself (the value of the group), and length xs gives the count of how many times that element appears.
+-- This gives a list of tuples, where each tuple is an element and its count. For example, [(1, 2), (2, 4), (3, 2), (5, 2)].
+

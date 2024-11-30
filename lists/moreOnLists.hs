@@ -169,6 +169,7 @@ doubleNestedList = map (map (map (*2)))
 
 -- import Data.List (group, sort)
 
+
 -- -- Function to count occurrences of each element
 -- countOccurrences :: [Int] -> [(Int, Int)]
 -- countOccurrences list = map (\xs -> (head xs, length xs)) (group (sort list))
